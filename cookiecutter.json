@@ -1,0 +1,14 @@
+{
+    "project_name": "Project Name",
+    "repo_name": "reponame",
+    "virtual_host": "reponame.dev",
+    "author_name": "Author Name",
+    "email": "Email",
+    "django_language_code": "en-us",
+    "html_language_code": "en",
+    "time_zone": "Europe/Stockholm",
+    "postgres_password": "PostgreSQL password",
+    "django_secret_key": "Django secret key",
+    "html5shiv_version": "3.7.3",
+    "respond_version": "1.4.2"
+}
