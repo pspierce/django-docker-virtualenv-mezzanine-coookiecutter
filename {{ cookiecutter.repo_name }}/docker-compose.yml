@@ -1,6 +1,6 @@
 # PostgreSQL
 postgres:
-  image: postgres:9.4
+  image: postgres:latest
   volumes:
       - ./postgresql/data:/var/lib/postgresql/data
   environment:
