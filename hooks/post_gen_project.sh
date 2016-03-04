@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 #cd {{cookiecutter.repo_name}}
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
