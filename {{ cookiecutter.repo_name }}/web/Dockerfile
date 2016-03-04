@@ -1,9 +1,10 @@
 FROM python:2.7
 
 RUN useradd -s /bin/bash -u {{cookiecutter.uid}} -M {{cookiecutter.repo_name}}_user
+ADD ./activate.sh /usr/local/bin/activate.sh
 
 USER {{cookiecutter.repo_name}}_user
 
 ENV PYTHONUNBUFFERED 1
 EXPOSE 8000
-CMD ["gunicorn", "--log-file=-", "--workers 4", "--name {{cookiecutter.repo_name}}_gunicorn", "-b 0.0.0.0:8000", "{{cookiecutter.repo_name}}.wsgi:application"]
+CMD ["activate.sh", "gunicorn", "--log-file=-", "--workers 4", "--name {{cookiecutter.repo_name}}_gunicorn", "-b 0.0.0.0:8000", "{{cookiecutter.repo_name}}.wsgi:application"]
