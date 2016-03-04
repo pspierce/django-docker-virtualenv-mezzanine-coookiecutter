@@ -5,6 +5,7 @@ postgres:
       - ./postgresql/data:/var/lib/postgresql/data
   environment:
     - POSTGRES_PASSWORD={{cookiecutter.postgres_password}}
+    - POSTGRES_USER={{cookiecutter.repo_name}}_user
 
 # Redis
 redis:
