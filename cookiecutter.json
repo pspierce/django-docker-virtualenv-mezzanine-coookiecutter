@@ -10,5 +10,6 @@
     "postgres_password": "PostgreSQL password",
     "django_secret_key": "Django secret key",
     "html5shiv_version": "3.7.3",
-    "respond_version": "1.4.2"
+    "respond_version": "1.4.2",
+    "uid": "1000"
 }
