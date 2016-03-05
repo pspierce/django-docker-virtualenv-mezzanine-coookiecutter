@@ -8,6 +8,7 @@ rm ./postgresql/data/.test
 docker-compose build web
 docker-compose up -d postgres
 docker-compose stop postgres
+sed -e "s/[#]\?listen_addresses = .*/listen_addresses = '*'/g" -i '/var/lib/postgresql/data/postgresql.conf'
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h "$POSTGRES_PORT_5432_TCP_ADDR" {{cookiecutter.repo_name}}';
 
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
