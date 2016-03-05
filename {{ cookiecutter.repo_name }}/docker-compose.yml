@@ -6,6 +6,8 @@ postgres:
   environment:
     - POSTGRES_PASSWORD={{cookiecutter.postgres_password}}
     - POSTGRES_USER={{cookiecutter.repo_name}}_user
+  ports:
+    - "5432":"5432"
 
 # Redis
 redis:
