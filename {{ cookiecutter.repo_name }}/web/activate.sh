@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source /virtualenv/scottpierce/bin/activate
+source /virtualenv/{{cookiecutter.repo_name}}/bin/activate
 cd $VIRTUAL_ENV
 exec $@
