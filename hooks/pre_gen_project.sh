@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo 'hello'
+chown -R spierce .
