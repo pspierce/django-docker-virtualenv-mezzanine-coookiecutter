@@ -14,7 +14,7 @@ read continue
 docker-compose stop postgres
 docker-compose up -d postgres
 
-sed -i '/host all all 127.0.0.1\/32 trust/a host all all 172.17.0.1\/16 trust' ./postgresql/data/pg_hba.conf
+sudo sed -i '/host all all 127.0.0.1\/32 trust/a host all all 172.17.0.1\/16 trust' ./postgresql/data/pg_hba.conf
 docker-compose stop postgres
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h "$POSTGRES_PORT_5432_TCP_ADDR" {{cookiecutter.repo_name}}';
 
