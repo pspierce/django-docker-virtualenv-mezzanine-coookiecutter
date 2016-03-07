@@ -4,7 +4,7 @@ set -x
 
 #cd {{cookiecutter.repo_name}}
 cwd=$(pwd)
-rm $cwd/postgresql/data/.test
+sudo rm $cwd/postgresql/data/.test
 docker-compose up -d postgres
 docker-compose stop postgres
 echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
