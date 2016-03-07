@@ -5,15 +5,14 @@ set -x
 #cd {{cookiecutter.repo_name}}
 cwd=$(pwd)
 rm $cwd/postgresql/data/.test
-read command
 docker-compose up -d postgres
 docker-compose stop postgres
-read command
-sudo echo "host all  all    0.0.0.0/0  md5" >> $cwd/postgresql/data/pg_hba.conf
-sudo echo "listen_addresses='*'" >> $cwd/postgresql/data/postgresql.conf
+echo "host all  all    0.0.0.0/0  md5" | tee -a $cwd/postgresql/data/pg_hba.conf
+echo "listen_addresses='*'" | tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h localhost {{cookiecutter.repo_name}}';
 
+read command
 #docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
