@@ -7,8 +7,8 @@ cwd=$(pwd)
 rm $cwd/postgresql/data/.test
 docker-compose up -d postgres
 docker-compose stop postgres
-echo "host all  all    0.0.0.0/0  md5" | tee -a $cwd/postgresql/data/pg_hba.conf
-echo "listen_addresses='*'" | tee -a $cwd/postgresql/data/postgresql.conf
+echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
+echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h localhost {{cookiecutter.repo_name}}';
 
