@@ -12,7 +12,7 @@ sudo echo "listen_addresses='*'" >> $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h localhost {{cookiecutter.repo_name}}';
 
-docker-compose build web
+#docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
 docker-compose run --rm web activate.sh pip install -r  /virtualenv/{{cookiecutter.repo_name}}/requirements/{{cookiecutter.dev_or_prod}}.txt
