@@ -5,8 +5,10 @@ set -x
 #cd {{cookiecutter.repo_name}}
 cwd=$(pwd)
 rm $cwd/postgresql/data/.test
+read command
 docker-compose up -d postgres
 docker-compose stop postgres
+read command
 sudo echo "host all  all    0.0.0.0/0  md5" >> $cwd/postgresql/data/pg_hba.conf
 sudo echo "listen_addresses='*'" >> $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
