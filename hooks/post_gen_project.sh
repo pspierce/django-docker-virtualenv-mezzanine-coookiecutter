@@ -10,7 +10,23 @@ docker-compose stop postgres
 echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
 echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
-docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h localhost {{cookiecutter.repo_name}}';
+
+x=1
+counter=0
+while [ $x -gt 0 ]
+do
+    sleep 10
+    psql -h 127.0.0.1 -U postgres -t -c "select now()" postgres 2> /dev/null
+    x=$?
+    counter=$(( $counter + 1 ))
+    if [[ $counter -gt 5 ]];
+    then
+        echo "It just didn't work out."
+        exit 1
+    fi
+done
+
+docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h 127.0.0.1 {{cookiecutter.repo_name}}';
 
 read command
 #docker-compose build web
