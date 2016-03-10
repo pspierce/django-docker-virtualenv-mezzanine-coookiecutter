@@ -2,50 +2,13 @@
 
 set -x
 
-wait_on_postgres() {
-    x=1
-    counter=0
-    while [ $x -gt 0 ]
-    do
-        sleep 10
-        if [[ "$(docker logs {{cookiecutter.repo_name}}_postgres_1| grep "$1")" ]];
-        then
-            return 0
-        fi
-
-        x=$?
-        counter=$(( $counter + 1 ))
-        if [[ $counter -gt 8 ]];
-        then
-            echo "It just didn't work out."
-            return 1
-        fi
-    done
-}
-
-_Dbg_debugger; :
-
+read command
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
+docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
 docker-compose up -d postgres
-
-wait_on_postgres
-if [[ "$(wait_on_postgres 'CREATE ROLE')" == 1 ]];
-then
-    docker-compose stop postgres;
-    exit 1;
-fi
-
 docker-compose stop postgres
 docker-compose up -d postgres
-
-wait_on_postgres
-if [[ "$(wait_on_postgres 'database system is ready to accept connections')" == 1 ]];
-then
-    docker-compose stop postgres;
-    exit 1;
-fi
-
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h 127.0.0.1 {{cookiecutter.repo_name}}';
 read command
 
