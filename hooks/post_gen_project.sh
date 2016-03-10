@@ -8,7 +8,7 @@ wait_on_postgres() {
     while [ $x -gt 0 ]
     do
         sleep 10
-        if [[ docker logs {{cookiecutter.repo_name}}_postgres_1| grep "CREATE ROLE" ]];
+        if [[ "$(docker logs {{cookiecutter.repo_name}}_postgres_1| grep '$1')" ]];
         then
             return 0
         fi
@@ -29,7 +29,7 @@ sudo rm $cwd/postgresql/data/.test
 docker-compose up -d postgres
 
 wait_on_postgres
-if [[ "$(wait_on_postgres)" == 1 ]];
+if [[ "$(wait_on_postgres 'CREATE ROLE')" == 1 ]];
 then
     docker-compose stop postgres;
     exit 1;
@@ -40,7 +40,7 @@ echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba
 echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
 wait_on_postgres
-if [[ "$(wait_on_postgres)" == 1 ]];
+if [[ "$(wait_on_postgres 'database system is ready to accept connections')" == 1 ]];
 then
     docker-compose stop postgres;
     exit 1;
