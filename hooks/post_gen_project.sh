@@ -16,7 +16,7 @@ counter=0
 while [ $x -gt 0 ]
 do
     sleep 10
-    psql -h 127.0.0.1 -U postgres -t -c "select now()" postgres 2> /dev/null
+    psql -h 127.0.0.1 -U scottpierce_user -t -c "select now()" template1 2> /dev/null
     x=$?
     counter=$(( $counter + 1 ))
     if [[ $counter -gt 5 ]];
