@@ -1,8 +1,6 @@
 #!/bin/sh
 
 set -x
-BASHDB_INSTALL=/usr/bin/bashdb # ADJUST THIS!
-source ${BASHDB_INSTALL}/bashdb-trace -L $BASHDB_INSTALL
 
 wait_on_postgres() {
     x=1
@@ -10,7 +8,7 @@ wait_on_postgres() {
     while [ $x -gt 0 ]
     do
         sleep 10
-        if [[ "$(docker logs {{cookiecutter.repo_name}}_postgres_1| grep '$1')" ]];
+        if [[ "$(docker logs {{cookiecutter.repo_name}}_postgres_1| grep "$1")" ]];
         then
             return 0
         fi
