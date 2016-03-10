@@ -5,17 +5,28 @@ set -x
 #cd {{cookiecutter.repo_name}}
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
-docker-compose up -d postgres
+docker-compose up postgres
 docker-compose stop postgres
-<<<<<<< HEAD
-sed -e "s/[#]\?listen_addresses = .*/listen_addresses = '*'/g" -i '/var/lib/postgresql/data/postgresql.conf'
-docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h "$POSTGRES_PORT_5432_TCP_ADDR" {{cookiecutter.repo_name}}';
-=======
 echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
 echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
-docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h localhost {{cookiecutter.repo_name}}';
->>>>>>> 4f3b556e9c909ec849071e91a0d935ca2516a5dd
+
+x=1
+counter=0
+while [ $x -gt 0 ]
+do
+    sleep 10
+    psql -h 127.0.0.1 -U postgres -t -c "select now()" postgres 2> /dev/null
+    x=$?
+    counter=$(( $counter + 1 ))
+    if [[ $counter -gt 5 ]];
+    then
+        echo "It just didn't work out."
+        exit 1
+    fi
+done
+
+docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h 127.0.0.1 {{cookiecutter.repo_name}}';
 
 read command
 #docker-compose build web
