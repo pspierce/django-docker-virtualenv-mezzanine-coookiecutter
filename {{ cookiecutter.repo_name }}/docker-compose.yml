@@ -3,6 +3,7 @@ postgres:
   image: postgres:latest
   volumes:
       - ./postgresql/data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   environment:
     - POSTGRES_PASSWORD={{cookiecutter.postgres_password}}
     - POSTGRES_USER={{cookiecutter.repo_name}}_user
