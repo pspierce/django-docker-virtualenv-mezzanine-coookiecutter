@@ -5,10 +5,6 @@ set -x
 #cd {{cookiecutter.repo_name}}
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
-docker-compose up postgres
-docker-compose stop postgres
-echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
-echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
 
 x=1
@@ -16,18 +12,22 @@ counter=0
 while [ $x -gt 0 ]
 do
     sleep 10
-    psql -h 127.0.0.1 -U postgres -t -c "select now()" postgres 2> /dev/null
+    if [[ docker logs {{cookiecutter.repo_name}}_postgres_1| grep "CREATE ROLE" ]];
+    then
+        docker-compose stop postgres
+    fi
+
     x=$?
     counter=$(( $counter + 1 ))
-    if [[ $counter -gt 5 ]];
-    then
+    if [[ $counter -gt 8 ]];
         echo "It just didn't work out."
         exit 1
     fi
 done
 
-docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h 127.0.0.1 {{cookiecutter.repo_name}}';
-
+#echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
+#echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
+docker-compose up -d postgres
 read command
 #docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
