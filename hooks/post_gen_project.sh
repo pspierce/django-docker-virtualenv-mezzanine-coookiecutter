@@ -20,6 +20,7 @@ do
     x=$?
     counter=$(( $counter + 1 ))
     if [[ $counter -gt 8 ]];
+    then
         echo "It just didn't work out."
         exit 1
     fi
