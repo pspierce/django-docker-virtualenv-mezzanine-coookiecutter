@@ -23,14 +23,13 @@ wait_on_postgres() {
     done
 }
 
-
-
 #cd {{cookiecutter.repo_name}}
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
 docker-compose up -d postgres
 
-if [ wait_on_postgres ];
+wait_on_postgres
+if [[ "$(wait_on_postgres)" == 1 ]];
 then
     docker-compose stop postgres;
     exit 1;
@@ -40,8 +39,8 @@ docker-compose stop postgres
 echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
 echo "listen_addresses='*'" | sudo tee -a $cwd/postgresql/data/postgresql.conf
 docker-compose up -d postgres
-
-if [ wait_on_postgres ];
+wait_on_postgres
+if [[ "$(wait_on_postgres)" == 1 ]];
 then
     docker-compose stop postgres;
     exit 1;
