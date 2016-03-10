@@ -1,6 +1,8 @@
 #!/bin/sh
 
 set -x
+BASHDB_INSTALL=/usr/bin/bashdb # ADJUST THIS!
+source ${BASHDB_INSTALL}/bashdb-trace -L $BASHDB_INSTALL
 
 wait_on_postgres() {
     x=1
@@ -22,6 +24,8 @@ wait_on_postgres() {
         fi
     done
 }
+
+_Dbg_debugger; :
 
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
