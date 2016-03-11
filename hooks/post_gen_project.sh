@@ -6,7 +6,7 @@ read command
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
 docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
-docker-compose up -d postgres
+docker-compose up postgres
 read command
 docker-compose up -d postgres
 docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h 127.0.0.1 {{cookiecutter.repo_name}}';
