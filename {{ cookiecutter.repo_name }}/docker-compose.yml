@@ -61,7 +61,7 @@ web:
     - DJANGO_SECRET_KEY={{cookiecutter.django_secret_key}}
     - DJANGO_HIREDIS_CACHE_LOCATION=redis:6379
     - DJANGO_ALLOWED_HOSTS=""
-    - DATABASE_URL=postgres://{{cookiecutter.repo_name}}_user:{{cookiecutter.postgres_password}}@127.0.0.1/{{cookiecutter.repo_name}}?sslmode=disable
+    - DATABASE_URL=postgres://{{cookiecutter.repo_name}}_user:{{cookiecutter.postgres_password}}@postgres/{{cookiecutter.repo_name}}?sslmode=disable
     - EMAIL_URL=console://
   user: root
   command: gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}.wsgi:application
