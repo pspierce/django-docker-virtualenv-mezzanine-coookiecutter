@@ -9,8 +9,17 @@ docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
 docker-compose up postgres
 read command
 docker-compose up -d postgres
-docker-compose run --rm postgres sh -c 'exec createdb -U postgres -h 127.0.0.1 {{cookiecutter.repo_name}}';
-
+echo ">> Waiting for postgres to start"
+WAIT=0
+while ! nc -z 127.0.0.1 5432; do
+    sleep 1
+    WAIT=$(($WAIT + 1))
+    if [ "$WAIT" -gt 15 ]; then
+        echo "Error: Timeout wating for Postgres to start"
+        exit 1
+    fi
+done
+read command
 #docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
