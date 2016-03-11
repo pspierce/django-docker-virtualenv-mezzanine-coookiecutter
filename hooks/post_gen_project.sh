@@ -28,3 +28,4 @@ docker-compose run --rm web activate.sh ./manage.py migrate
 docker-compose run --rm web activate.sh ./manage.py createsuperuser
 docker-compose run --rm web activate.sh ./manage.py collectstatic
 docker-compose run --rm web activate.sh ./manage.py startapp {{cookiecutter.repo_name}}
+echo "host all  all    0.0.0.0/0  md5" | sudo tee -a /var/lib/postgresql/data/pg_hba.conf
