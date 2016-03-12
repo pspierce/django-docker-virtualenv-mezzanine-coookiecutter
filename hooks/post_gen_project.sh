@@ -2,12 +2,10 @@
 
 set -x
 
-read command
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
 docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
 docker-compose up postgres
-read command
 docker-compose up -d postgres
 echo ">> Waiting for postgres to start"
 WAIT=0
@@ -19,7 +17,6 @@ while ! nc -z 127.0.0.1 5432; do
         exit 1
     fi
 done
-read command
 #docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
