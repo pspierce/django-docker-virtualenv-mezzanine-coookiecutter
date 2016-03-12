@@ -14,5 +14,3 @@ django-redis-cache==1.6.0
 
 # django-configurations from Git master (needed for Django 1.8 support)
 git+https://github.com/jezdez/django-configurations
-
-mezzanine
