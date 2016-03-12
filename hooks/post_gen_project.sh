@@ -28,4 +28,7 @@ docker-compose run --rm web activate.sh ./manage.py migrate
 docker-compose run --rm web activate.sh ./manage.py createsuperuser
 docker-compose run --rm web activate.sh ./manage.py collectstatic
 docker-compose run --rm web activate.sh ./manage.py startapp {{cookiecutter.app_name}}
+docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock --name nginx-proxy jwilder/nginx-proxy
 echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
+docker-compose stop
+docker-compose up -d
