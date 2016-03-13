@@ -20,11 +20,14 @@ done
 #docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
-docker-compose run --rm web activate.sh pip install -r  /virtualenv/{{cookiecutter.repo_name}}/requirements/{{cookiecutter.dev_or_prod}}.txt
+docker-compose run --rm web activate.sh pip install -r  /virtualenv/{{cookiecutter.repo_name}}_tmp/requirements/{{cookiecutter.dev_or_prod}}.txt
+docker-compose run --rm web activate.sh mezzanine-project {{cookiecutter.repo_name}}
+sudo mv ./virtualenv/{{cookiecutter.repo_name}}_tmp/requirements ./virtualenv/{{cookiecutter.repo_name}}_tmp/sass ./virtualenv/{{cookiecutter.repo_name}}_tmp/static ./virtualenv/{{cookiecutter.repo_name}}_tmp/templates ./virtualenv/{{cookiecutter.repo_name}}/
+sudo rm -rf ./virtualenv/{{cookiecutter.repo_name}}_tmp
 docker-compose run --rm web activate.sh ./manage.py migrate
 docker-compose run --rm web activate.sh ./manage.py createsuperuser
 docker-compose run --rm web activate.sh ./manage.py collectstatic
-docker-compose run --rm web activate.sh ./manage.py startapp {{cookiecutter.app_name}}
+docker-compose run --rm web activate.sh ./manage.py  {{cookiecutter.app_name}}
 docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock --name nginx-proxy jwilder/nginx-proxy
 echo "host all  all    0.0.0.0/0  md5" | sudo tee -a $cwd/postgresql/data/pg_hba.conf
 docker-compose stop
