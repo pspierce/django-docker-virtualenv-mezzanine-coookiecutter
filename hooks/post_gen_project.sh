@@ -18,6 +18,7 @@ while ! nc -z 127.0.0.1 5432; do
     fi
 done
 #docker-compose build web
+read command
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}/bin/
 docker-compose run --rm web activate.sh pip install -r  /virtualenv/{{cookiecutter.repo_name}}_tmp/requirements/{{cookiecutter.dev_or_prod}}.txt
