@@ -53,6 +53,7 @@ web:
   build: ./web
   volumes:
     - ./virtualenv/{{cookiecutter.repo_name}}:/virtualenv/{{cookiecutter.repo_name}}
+    - ./web/{{cookiecutter.repo_name}}:/webfiles
   links:
     - postgres
     - redis
