@@ -65,4 +65,4 @@ web:
     - DATABASE_URL=postgres://{{cookiecutter.repo_name}}_user:{{cookiecutter.postgres_password}}@postgres/{{cookiecutter.repo_name}}?sslmode=disable
     - EMAIL_URL=console://
   user: root
-  command: activate.sh gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}.wsgi:application
+  command: activate.sh gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}project.wsgi:application
