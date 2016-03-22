@@ -2,9 +2,6 @@ FROM python:2.7
 
 RUN useradd -s /bin/bash -u {{cookiecutter.uid}} -M {{cookiecutter.repo_name}}_user
 
-ADD ./activate.sh /usr/local/bin/activate.sh
-RUN chmod +x /usr/local/bin/activate.sh
-
 USER {{cookiecutter.repo_name}}_user
 
 ENV PYTHONUNBUFFERED 1
