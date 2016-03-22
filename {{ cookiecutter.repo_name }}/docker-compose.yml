@@ -53,6 +53,10 @@ web:
   build: ./web
   volumes:
     - ./virtualenv/{{cookiecutter.repo_name}}env:/virtualenv/{{cookiecutter.repo_name}}env
+<<<<<<< HEAD
+=======
+    - ./web/{{cookiecutter.repo_name}}env:/webfiles
+>>>>>>> 8b09bd87ede2d88c96f29b09b20d6f7c79391cb2
   links:
     - postgres
     - redis
@@ -64,4 +68,4 @@ web:
     - DATABASE_URL=postgres://{{cookiecutter.repo_name}}_user:{{cookiecutter.postgres_password}}@postgres/{{cookiecutter.repo_name}}?sslmode=disable
     - EMAIL_URL=console://
   user: root
-  command: activate.sh gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}.wsgi:application
+  command: activate.sh gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}project.wsgi:application
