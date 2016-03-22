@@ -52,7 +52,7 @@ assets:
 web:
   build: ./web
   volumes:
-    - ./virtualenv/{{cookiecutter.repo_name}}:/virtualenv/{{cookiecutter.repo_name}}
+    - ./virtualenv/{{cookiecutter.repo_name}}env:/virtualenv/{{cookiecutter.repo_name}}env
   links:
     - postgres
     - redis
