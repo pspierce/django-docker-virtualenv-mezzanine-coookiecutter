@@ -5,6 +5,7 @@ set -x
 cwd=$(pwd)
 sudo rm $cwd/postgresql/data/.test
 docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
+docker-compose build web
 docker-compose up postgres
 docker-compose up -d postgres
 echo ">> Waiting for postgres to start"
