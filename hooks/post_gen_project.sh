@@ -3,6 +3,9 @@
 set -x
 
 cwd=$(pwd)
+
+echo $cwd
+
 sudo rm $cwd/postgresql/data/.test
 docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
 docker-compose build web
