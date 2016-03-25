@@ -2,7 +2,7 @@ FROM python:2.7
 
 RUN useradd -s /bin/bash -u {{cookiecutter.uid}} -M {{cookiecutter.repo_name}}_user
 
-COPY  ./web/activate.sh /usr/local/bin/activate.sh
+COPY  ./{{cookiecutter.repo_name}}/web/activate.sh /usr/local/bin/activate.sh
 RUN chmod +x /usr/local/bin/activate.sh
 
 USER {{cookiecutter.repo_name}}_user
