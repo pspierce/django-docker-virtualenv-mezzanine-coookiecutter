@@ -23,12 +23,11 @@ while ! nc -z 127.0.0.1 5432; do
     fi
 done
 #docker-compose build web
-read command
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}env
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}env/bin/
 docker-compose run --rm web activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/requirements/{{cookiecutter.dev_or_prod}}.txt
 docker-compose run --rm web activate.sh mezzanine-project {{cookiecutter.repo_name}}site
-sudo mv ./web/sass ./web/static ./web/templates ./virtualenv/{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}site/
+sudo mv ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/web/sass ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/web/static ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/web/templates ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/
 read command
 docker-compose run --rm web activate.sh ./manage.py migrate
 docker-compose run --rm web activate.sh ./manage.py createsuperuser
