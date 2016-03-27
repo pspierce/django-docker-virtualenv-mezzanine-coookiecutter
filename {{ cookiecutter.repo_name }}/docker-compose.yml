@@ -51,6 +51,7 @@ assets:
 # Web python
 web:
   build: ./web
+  user: {{cookiecutter.repo_name}}_user
   volumes:
     - ./virtualenv/{{cookiecutter.repo_name}}env:/virtualenv/{{cookiecutter.repo_name}}env
   links:
