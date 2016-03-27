@@ -4,6 +4,8 @@ RUN useradd -s /bin/bash -u {{cookiecutter.uid}} -M {{cookiecutter.repo_name}}_u
 
 COPY  activate.sh /usr/local/bin/activate.sh
 RUN chmod +x /usr/local/bin/activate.sh
+COPY  activate.sh /usr/local/bin/init_activate.sh
+RUN chmod +x /usr/local/bin/init_activate.sh
 
 USER {{cookiecutter.repo_name}}_user
 

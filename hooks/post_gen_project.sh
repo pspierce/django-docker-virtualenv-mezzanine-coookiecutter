@@ -25,7 +25,7 @@ done
 #docker-compose build web
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}env
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}env/bin/
-docker-compose run --rm web activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/requirements/{{cookiecutter.dev_or_prod}}.txt
+docker-compose run --rm web init_activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/requirements/{{cookiecutter.dev_or_prod}}.txt
 docker-compose run --rm web activate.sh mezzanine-project {{cookiecutter.repo_name}}site
 sudo mv ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/sass \
     ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/static \
