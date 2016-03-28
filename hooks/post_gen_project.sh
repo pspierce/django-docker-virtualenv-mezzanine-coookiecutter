@@ -23,16 +23,12 @@ docker-compose build web
 #    fi
 #done
 
-read command
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}env
 
-read command
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}env/bin/
 
-read command
 docker-compose run --rm web init_activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/requirements.txt
 
-read command
 docker-compose run --rm web init_activate.sh mezzanine-project {{cookiecutter.repo_name}}site
 
 sudo mv ./web/sass \
@@ -42,9 +38,6 @@ sudo mv ./web/sass \
 
 sudo cp ./web/mezz_local_settings.py ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/local_settings.py
 
-sudo rm -rf ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project
-
-read command
 docker-compose run --rm web activate.sh python manage.py migrate
 docker-compose run --rm web activate.sh python manage.py createsuperuser
 docker-compose run --rm web activate.sh python manage.py collectstatic
