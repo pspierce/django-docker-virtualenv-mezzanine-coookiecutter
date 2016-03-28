@@ -40,6 +40,8 @@ sudo mv ./web/sass \
     ./web/templates \
     ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/
 
+sudo cp ./web/mezz_local_settings.py ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/local_settings.py
+
 sudo rm -rf ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project
 
 read command
