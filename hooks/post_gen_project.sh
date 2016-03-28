@@ -33,7 +33,7 @@ read command
 docker-compose run --rm web init_activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/requirements.txt
 
 read command
-docker-compose run --rm web activate.sh mezzanine-project {{cookiecutter.repo_name}}site
+docker-compose run --rm web init_activate.sh mezzanine-project {{cookiecutter.repo_name}}site
 
 sudo mv ./web/sass \
     ./web/static \
