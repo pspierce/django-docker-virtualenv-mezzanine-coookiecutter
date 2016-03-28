@@ -54,9 +54,9 @@ web:
   user: {{cookiecutter.repo_name}}_user
   volumes:
     - ./virtualenv/{{cookiecutter.repo_name}}env:/virtualenv/{{cookiecutter.repo_name}}env
-  links:
-    - postgres
-    - redis
+#  links:
+#    - postgres
+#    - redis
   environment:
     - DJANGO_CONFIGURATION=Dev
     - DJANGO_SECRET_KEY={{cookiecutter.django_secret_key}}

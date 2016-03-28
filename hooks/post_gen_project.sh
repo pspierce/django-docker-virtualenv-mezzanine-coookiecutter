@@ -6,22 +6,22 @@ cwd=$(pwd)
 
 echo $cwd
 
-sudo rm $cwd/postgresql/data/.test
-docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
 docker-compose build web
-docker-compose stop
-docker-compose up postgres
-docker-compose up -d postgres
-echo ">> Waiting for postgres to start"
-WAIT=0
-while ! nc -z 127.0.0.1 5432; do
-    sleep 1
-    WAIT=$(($WAIT + 1))
-    if [ "$WAIT" -gt 15 ]; then
-        echo "Error: Timeout wating for Postgres to start"
-        exit 1
-    fi
-done
+#sudo rm $cwd/postgresql/data/.test
+#docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
+#docker-compose stop
+#docker-compose up postgres
+#docker-compose up -d postgres
+#echo ">> Waiting for postgres to start"
+#WAIT=0
+#while ! nc -z 127.0.0.1 5432; do
+#    sleep 1
+#    WAIT=$(($WAIT + 1))
+#    if [ "$WAIT" -gt 15 ]; then
+#        echo "Error: Timeout wating for Postgres to start"
+#        exit 1
+#    fi
+#done
 
 read command
 docker-compose run --rm web virtualenv /virtualenv/{{cookiecutter.repo_name}}env
@@ -30,7 +30,7 @@ read command
 sudo cp web/activate.sh ./virtualenv/{{cookiecutter.repo_name}}env/bin/
 
 read command
-docker-compose run --rm web init_activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}project/requirements/{{cookiecutter.dev_or_prod}}.txt
+docker-compose run --rm web init_activate.sh pip install -r /virtualenv/{{cookiecutter.repo_name}}env/requirements.txt
 
 read command
 docker-compose run --rm web activate.sh mezzanine-project {{cookiecutter.repo_name}}site
