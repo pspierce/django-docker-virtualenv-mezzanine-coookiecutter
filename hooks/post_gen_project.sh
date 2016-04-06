@@ -37,10 +37,8 @@ sudo mv ./web/sass \
     ./web/templates \
     ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/
 
-sudo mv ./web/mezz_settings.py \
-    ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/local_settings.py
+sudo cp ./web/mezz_local_settings.py ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/{{cookiecutter.repo_name}}site/local_settings.py
 
-read command
 docker-compose run --rm web activate.sh python manage.py migrate
 docker-compose run --rm web activate.sh python manage.py createsuperuser
 docker-compose run --rm web activate.sh python manage.py collectstatic

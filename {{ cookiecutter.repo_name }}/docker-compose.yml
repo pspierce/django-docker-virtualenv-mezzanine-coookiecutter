@@ -22,8 +22,8 @@ nginx:
   image: nginx
   volumes:
     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    - ./virtualenv/{{cookiecutter.repo_name}}/media:/media:ro
-    - ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/static:/static:ro
+    - ./virtualenv/{{cookiecutter.repo_name}}env/media:/media:ro
+    - ./virtualenv/{{cookiecutter.repo_name}}env/static:/static:ro
   links:
     - web
   environment:
@@ -54,9 +54,9 @@ web:
   user: {{cookiecutter.repo_name}}_user
   volumes:
     - ./virtualenv/{{cookiecutter.repo_name}}env:/virtualenv/{{cookiecutter.repo_name}}env
-#  links:
-#    - postgres
-#    - redis
+  links:
+    - postgres
+    - redis
   environment:
     - DJANGO_CONFIGURATION=Dev
     - DJANGO_SECRET_KEY={{cookiecutter.django_secret_key}}
@@ -65,4 +65,4 @@ web:
     - DATABASE_URL=postgres://{{cookiecutter.repo_name}}_user:{{cookiecutter.postgres_password}}@postgres/{{cookiecutter.repo_name}}?sslmode=disable
     - EMAIL_URL=console://
   user: root
-  command: activate.sh gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}project.wsgi:application
+  command: activate.sh gunicorn --log-level info --log-file=- --workers 4 --name {{cookiecutter.repo_name}}_gunicorn -b 0.0.0.0:8000 --reload {{cookiecutter.repo_name}}site.{{cookiecutter.repo_name}}site.wsgi:application
