@@ -22,8 +22,8 @@ nginx:
   image: nginx
   volumes:
     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    - ./virtualenv/{{cookiecutter.repo_name}}env/media:/media:ro
-    - ./virtualenv/{{cookiecutter.repo_name}}env/static:/static:ro
+    - ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/media:/media:ro
+    - ./virtualenv/{{cookiecutter.repo_name}}env/{{cookiecutter.repo_name}}site/static:/static:ro
   links:
     - web
   environment:
