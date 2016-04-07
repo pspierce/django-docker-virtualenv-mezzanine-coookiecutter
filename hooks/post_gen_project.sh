@@ -6,9 +6,9 @@ cwd=$(pwd)
 
 echo $cwd
 
+docker rm -v $(docker ps -a| grep scottpierceme_|awk '{print $1}')
 docker-compose build web
 sudo rm $cwd/postgresql/data/.test
-docker-compose rm -v {{cookiecutter.repo_name}}_postgres_1
 docker-compose stop
 docker-compose up postgres
 docker-compose up -d postgres
