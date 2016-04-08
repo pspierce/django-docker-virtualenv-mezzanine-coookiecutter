@@ -34,8 +34,6 @@ pgweb:
   image: donnex/pgweb
   links:
     - postgres
-  environment:
-    VIRTUAL_HOST: pgweb.{{cookiecutter.virtual_host}}
 
 # Assets
 assets:
