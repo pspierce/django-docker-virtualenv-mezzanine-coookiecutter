@@ -9,7 +9,7 @@ postgres:
     - POSTGRES_USER={{cookiecutter.repo_name}}_user
     - POSTGRES_DB={{cookiecutter.repo_name}}
   ports:
-    - "5432:5432"
+    - "{{cookiecutter.postgres_port}}:5432"
 
 # Redis
 redis:

@@ -14,7 +14,7 @@ docker-compose up postgres
 docker-compose up -d postgres
 echo ">> Waiting for postgres to start"
 WAIT=0
-while ! nc -z 127.0.0.1 5432; do
+while ! nc -z 127.0.0.1 {{cookiecutter.postgres_port}}; do
     sleep 1
     WAIT=$(($WAIT + 1))
     if [ "$WAIT" -gt 15 ]; then
