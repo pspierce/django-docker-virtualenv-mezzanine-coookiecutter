@@ -6,7 +6,7 @@
     "email": "Email",
     "django_language_code": "en-us",
     "html_language_code": "en",
-    "time_zone": "Europe/Stockholm",
+    "time_zone": "America/New_York",
     "postgres_password": "PostgreSQL password",
     "django_secret_key": "Django secret key",
     "html5shiv_version": "3.7.3",
