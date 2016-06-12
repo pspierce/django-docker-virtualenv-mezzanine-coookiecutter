@@ -13,6 +13,6 @@
     "respond_version": "1.4.2",
     "uid": "1000",
     "dev_or_prod": "dev",
-    "postgres_port": "5433",
+    "postgres_port": "5433"
 
 }
